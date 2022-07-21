@@ -1,0 +1,85 @@
+\documentclass[fleqn,compress,utf8,aspectratio=169,t]{beamer}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor,colortbl}
+\usepackage{tabularx}
+\usepackage{diagbox}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}% checkmark
+\newcommand{\xmark}{\ding{55}}% xmark
+
+\usepackage{multirow}
+
+% use LMU theme
+%\usetheme{YourOwnTheme}
+\usetheme{LMU}
+%remove frame title since it is already inserted in the headline in style/beamerouterthemelmu.sty
+%if not use LMU theme, comment out the next 3 lines
+\makeatletter
+\setbeamertemplate{frametitle}{}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                  Title Page Data                           %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% helper command to add multiple authors
+\newcommand{\newauthor}[2]{
+  \parbox[c]{0.26\textwidth}{
+        {\bfseries #1} \\
+        {\scriptsize{\href{mailto:#2}{#2}}}
+      }
+      %{#1}
+  }
+
+% Multiple Authors
+% If you have multiple authors simply use this command and adjust the width in
+% style/beamerinnertheme where the authors are rendered
+\author[Authors shown in footer]{
+    \newauthor{Author 1}{author1@campus.lmu.de} \and 
+    \newauthor{Author 2}{mnm-team.org/$\sim$author2}
+}
+
+% Single Author
+%\author[Vor- Nachname shown in footer]{Vor- Nachname}
+
+%\institute[LMU]{LMU M\"unchen, MNM Team\\\texttt{http://www.nm.ifi.lmu.de/}}
+%\institute[LMU]{Ludwig-Maximilians-Universit\"at M\"unchen, MNM-Team}%\\\texttt{http://www.nm.ifi.lmu.de/}}
+\institute[LMU]{Aufgabensteller: Prof. Dr. Dieter Kranzlmüller\\
+                Betreuer 1:\hspace{5ex} 1. Supervisor \\ 
+		Betreuer 2:\hspace{5ex} 2. Supervisor
+}
+
+\date[\today]{\today}
+%\date[\today]{June 13, 2022}
+
+%title[short title appear in footer of subsequent slides]{Full title in the title page}
+\title[Conflict Detection in Software-Defined Networks]{Conflict Detection in \\Software-Defined Networks}
+%\subtitle{Subtitle}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                  Document                                  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Overview %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{content}
+\input{backup}
+%\input{todo}
+
+%hidden frame for references
+\begin{frame}<presentation:0>[noframenumbering]
+\nocite{han99}
+\bibliographystyle{IEEEtran}
+\bibliography{paper}
+\end{frame}
+
+\end{document}

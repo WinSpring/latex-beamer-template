@@ -1,0 +1,25 @@
+Dies ist ein Rahmen für Artikel, Berichte etc.
+
+
+VORGEHENSWEISE ist einfach:
+
+1) Text in ./Latex ablegen
+2) Bilder in ./Bilder ablegen
+3) ./Latex/main.tex editieren (insbesondere eigenen Text \input-ten)
+4) make [ main.ps | main.pdf ] eingeben
+5) make (clean | distclean) schaffen wider etwas Ordnung.
+
+- Bilder sollten in mehreren Formaten unterstützt sein, etwa: Vektorgraphiken
+(.eps, .fig, ...) oder Bitmaps (.jpg, .png, .gif ...)
+
+- Literaturangaben sollten in ./Bib/paper.bib landen
+
+
+Wer sinnvolle ÄNDERUNGEN am Rahmen einpflegen will, möge diese bitte ins
+CVS-Repository einpflegen.
+
+2006-07-03 VAD 
+Credits: Der Rahmen basiert auf früheren Arbeiten am LS
+Hegering, insbesondere (denke ich) sind's Harrys Makefiles.
+
+2022-07-21 Cuong Tran: Konvertiert die vorhandene Latex-Vorlage für Papier in Beamer.

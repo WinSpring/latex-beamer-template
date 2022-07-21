@@ -1,0 +1,48 @@
+
+ABB_DIR = ../Bilder
+BIB_DIR = ../Bib
+
+TMP_DIR = ./tmp_make
+TMP_DIR_PICS = ./tmp_make_pics
+
+export TEXINPUTS := .//:$(shell pwd)/../Styles//:/usr/share/mnm-textools/inputs:/usr/local/mnmcommon/lib/texinputs//:$(TEXINPUTS)
+
+export BSTINPUTS      := $(shell pwd)/../Styles//:$(TEXINPUTS):/proj/Literatur/Bib//
+export BIBINPUTS      := $(shell pwd)/../Bib/:/proj/Literatur/Bib//
+
+#epstopdf bettet Schriftarten ein (VAD)
+export GS_OPTIONS="-dPDFSETTINGS=/prepress"
+
+TEX_CMD        := tex
+LATEX_CMD      := latex
+PDFTEX_CMD     := pdftex
+PDFLATEX_CMD   := pdflatex
+BIBTEX_CMD     := bibtex
+DVIPS_CMD      := dvips
+PSNUP_CMD      := psnup
+XDVI_CMD       := xdvi
+GZIP_CMD       := gzip
+FIND_CMD       := find
+EPSTOPDF_CMD   := epstopdf
+FIGTODEV_CMD   := fig2dev
+GREP_CMD       := grep
+CUT_CMD        := cut
+GS_CMD         := gs
+CAT_CMD        := cat
+TAIL_CMD       := tail
+BASENAME_CMD   := basename
+SED_CMD        := sed
+AWK_CMD        := awk
+L2H_CMD        := /opt/latex2html-2K.1beta/bin/latex2html
+TTH_CMD        := tth
+EPSTOPIC_CMD   := ../bin/eps2pic
+MOGRIFY_CMD    := mogrify
+DIA_CMD        := dia
+INKSCAPE_CMD	:= inkscape
+
+PIXELTYPE_RES  := 300
+PIXELTYPE_GS   := png256
+PIXELTYPE_EXT  := png
+
+THUMBPDF_CMD   := thumbpdf
+

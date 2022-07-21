@@ -1,0 +1,401 @@
+
+include ./Makefile.DEF
+
+#=========================================================================================
+#
+# Sources
+#
+#=========================================================================================
+
+#
+# Master sources the document depends on
+#
+MASTER_SRC = Makefile Makefile.DEF
+
+#-----------------------------------------------------------------------------------------
+# Local sources the document depends on
+#
+
+FIG_SRC   = $(wildcard $(ABB_DIR)/*.fig)
+PNG_SRC   = $(wildcard $(ABB_DIR)/*.png)
+GIF_SRC   = $(wildcard $(ABB_DIR)/*.gif)
+JPG_SRC   = $(wildcard $(ABB_DIR)/*.jpg)
+TIF_SRC   = $(wildcard $(ABB_DIR)/*.tif)
+DIA_SRC   = $(wildcard $(ABB_DIR)/*.dia) $(wildcard $(STYLE_DIR)/*.dia)
+EPS_SRC   = $(wildcard $(ABB_DIR)/*.eps)
+SVG_SRC   = $(wildcard $(ABB_DIR)/*.svg) $(wildcard $(STYLE_DIR)/*.svg)
+PDF_SRC   = $(wildcard $(ABB_DIR)/*.src.pdf)
+
+ABB_SRC   = $(FIG_SRC) $(PNG_SRC) $(GIF_SRC) $(JPG_SRC) $(TIF_SRC) $(EPS_SRC) $(DIA_SRC) $(SVG_SRC) $(PDF_SRC)
+
+FROM_FIG_EPS      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.fig,%.eps,$(notdir $(FIG_SRC))))
+FROM_PNG_EPS      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.png,%.eps,$(notdir $(PNG_SRC))))
+FROM_GIF_EPS      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.gif,%.eps,$(notdir $(GIF_SRC))))
+FROM_JPG_EPS      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.jpg,%.eps,$(notdir $(JPG_SRC))))
+FROM_TIF_EPS      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.tif,%.eps,$(notdir $(TIF_SRC))))
+FROM_DIA_EPS      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.dia,%.eps,$(notdir $(DIA_SRC))))
+FROM_SVG_EPS      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.svg,%.eps,$(notdir $(SVG_SRC))))
+CONVERT_TO_EPS    = $(FROM_FIG_EPS) $(FROM_PNG_EPS) $(FROM_GIF_EPS) $(FROM_JPG_EPS) $(FROM_TIF_EPS) $(FROM_DIA_EPS) $(FROM_SVG_EPS) $(FROM_PDF_EPS)
+
+FROM_FIG_PDF      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.fig,%.pdf,$(notdir $(FIG_SRC))))
+FROM_PNG_PDF      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.png,%.pdf,$(notdir $(PNG_SRC))))
+FROM_GIF_PDF      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.gif,%.pdf,$(notdir $(GIF_SRC))))
+FROM_JPG_PDF      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.jpg,%.pdf,$(notdir $(JPG_SRC))))
+FROM_TIF_PDF      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.tif,%.pdf,$(notdir $(TIF_SRC))))
+FROM_EPS_PDF      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.eps,%.pdf,$(notdir $(EPS_SRC))))
+FROM_DIA_PDF      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.dia,%.pdf,$(notdir $(DIA_SRC))))
+FROM_SVG_PDF      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.svg,%.pdf,$(notdir $(SVG_SRC))))
+FROM_SRC_PDF_PDF         = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.src.pdf,%.pdf,$(notdir $(PDF_SRC))))
+CONVERT_TO_EPS_TO_PDF    = $(FROM_FIG_PDF) $(FROM_PNG_PDF) $(FROM_GIF_PDF) $(FROM_JPG_PDF) $(FROM_TIF_PDF) $(FROM_EPS_PDF) $(FROM_DIA_PDF)
+CONVERT_TO_PDF    = $(CONVERT_TO_EPS_TO_PDF) $(FROM_SVG_PDF) $(FROM_SRC_PDF_PDF)
+
+FROM_FIG_SMALLGIF   = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.fig,%_small.gif,$(notdir $(FIG_SRC))))
+FROM_PNG_SMALLGIF   = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.png,%_small.gif,$(notdir $(PNG_SRC))))
+FROM_GIF_SMALLGIF   = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.gif,%_small.gif,$(notdir $(GIF_SRC))))
+FROM_JPG_SMALLGIF   = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.jpg,%_small.gif,$(notdir $(JPG_SRC))))
+FROM_TIF_SMALLGIF   = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.tif,%_small.gif,$(notdir $(TIF_SRC))))
+FROM_EPS_SMALLGIF   = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.eps,%_small.gif,$(notdir $(EPS_SRC))))
+FROM_DIA_SMALLGIF   = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.dia,%_small.gif,$(notdir $(DIA_SRC))))
+FROM_SVG_SMALLGIF   = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.svg,%_small.gif,$(notdir $(SVG_SRC))))
+CONVERT_TO_SMALLGIF = $(FROM_FIG_SMALLGIF) $(FROM_PNG_SMALLGIF) $(FROM_GIF_SMALLGIF) $(FROM_JPG_SMALLGIF) $(FROM_TIF_SMALLGIF) $(FROM_EPS_SMALLGIF) $(FROM_DIA_SMALLGIF) $(FROM_SVG_SMALLGIF)
+
+FROM_FIG_JPG      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.fig,%.jpg,$(notdir $(FIG_SRC))))
+FROM_PNG_JPG      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.png,%.jpg,$(notdir $(PNG_SRC))))
+FROM_GIF_JPG      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.gif,%.jpg,$(notdir $(GIF_SRC))))
+FROM_TIF_JPG      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.tif,%.jpg,$(notdir $(TIF_SRC))))
+FROM_EPS_JPG      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.eps,%.jpg,$(notdir $(EPS_SRC))))
+FROM_DIA_JPG      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.dia,%.jpg,$(notdir $(DIA_SRC))))
+FROM_SVG_JPG      = $(addprefix $(TMP_DIR_PICS)/,$(patsubst %.svg,%.jpg,$(notdir $(SVG_SRC))))
+CONVERT_TO_JPG    = $(FROM_FIG_JPG) $(FROM_PNG_JPG) $(FROM_GIF_JPG) $(FROM_TIF_JPG) $(FROM_EPS_JPG) $(FROM_DIA_JPG) $(FROM_SVG_JPG)
+
+BIB_SRC   = $(wildcard $(BIB_DIR)/*.bib)
+
+TEX_SRC   = $(wildcard ./*.tex)
+
+SOURCES   = $(ABB_SRC) $(BIB_SRC) $(TEX_SRC) $(MASTER_SRC)
+
+TMP_DIR_SOURCES = $(addprefix $(TMP_DIR)/,$(notdir $(TEX_SRC) $(BIB_SRC)))
+
+#=========================================================================================
+#
+# Multi target definitions
+#
+#=========================================================================================
+
+BASE_TARGETS = main
+
+DVI_TARGETS  = $(addsuffix .dvi, $(BASE_TARGETS))
+PS_TARGETS   = $(addsuffix .ps, $(BASE_TARGETS))
+PSGZ_TARGETS = $(addsuffix .ps.gz, $(BASE_TARGETS))
+PS2P_TARGETS = $(addsuffix 2p.ps, $(BASE_TARGETS))
+PDF_TARGETS  = $(addsuffix .pdf, $(BASE_TARGETS))
+HTML_TARGETS = $(addsuffix .html, $(BASE_TARGETS))
+
+ALL_TARGETS  = $(DVI_TARGETS) $(PS_TARGETS) $(PSGZ_TARGETS) $(PDF_TARGETS) $(HTML_TARGETS) $(PS2P_TARGETS)
+
+
+#=========================================================================================
+#
+# Rules for main targets
+#
+#=========================================================================================
+
+.PHONY: default all clean distclean
+
+#
+# Default: all targets
+#
+#*********************
+#vvvvvvvvvvvvvvvvvvvvv
+#   H I E R    AUSSCHALTEN, FALLS POSTSCRIPT UND SONSTIGE FORMATE ERWUENSCHT
+$(PDF_TARGETS):
+
+#default: $(PDF_TARGETS)
+
+all: $(ALL_TARGETS)
+
+
+#
+# Target for DVI file using simple latex
+#
+$(DVI_TARGETS): %.dvi: $(SOURCES) $(CONVERT_TO_EPS)
+	$(MAKE) -C . $*.single_latex
+	#$(MAKE) -C . $*.single_latex
+	$(MAKE) -C . $*.single_bibtex
+	$(MAKE) -C . $*.single_latex
+	$(MAKE) -C . $*.single_latex
+	#$(MAKE) -C . $*.single_latex
+	cp $(TMP_DIR)/$*.dvi .
+
+ 
+#
+# Target for PS file out of DVI file
+#
+$(PS_TARGETS): %.ps: %.dvi
+	@rm -f $@
+	$(DVIPS_CMD) -o $*.ps $*.dvi
+
+
+#
+# Target for PS.GZ file out of PS file
+#
+$(PSGZ_TARGETS): %.ps.gz: %.ps
+	$(GZIP_CMD) -f -9 -c $< >$@
+
+
+#
+# Target for 2-up PS file out of PS file
+#
+$(PS2P_TARGETS): %2p.ps: %.ps
+	@echo "I am a nop as PS2UP_CMD is undefined!"
+	@echo "Have a nice day!"
+	$(PS2UP_CMD)	
+
+#
+# Target for PDF file using pdflatex
+#
+$(PDF_TARGETS): %.pdf: $(SOURCES) $(CONVERT_TO_PDF) $(TMP_DIR) $(TMP_DIR_PICS)
+	$(MAKE) -C . $*.single_pdflatex
+#	$(MAKE) -C . $*.single_pdflatex
+	$(MAKE) -C . $*.single_bibtex
+	$(MAKE) -C . $*.single_pdflatex
+	$(MAKE) -C . $*.single_pdflatex
+#	$(MAKE) -C . $*.single_pdflatex
+	cp $(TMP_DIR)/$*.pdf .
+
+
+#
+# Target for HTML version
+#
+$(HTML_TARGETS): %.html: %.dvi $(SOURCES) $(CONVERT_TO_SMALLGIF) $(CONVERT_TO_JPG)
+	$(MAKE) -C . $*.single_tth
+	rm -rf  $*.html
+	mkdir $*.html
+	cp $(TMP_DIR_PICS)/*_small.gif ./$*.html/
+	cp $(TMP_DIR_PICS)/*.jpg ./$*.html/
+	cp $(TMP_DIR)/$*.html ./$*.html/index.html
+
+
+#=========================================================================================
+#
+# Targets for picture conversion
+#
+#=========================================================================================
+
+$(FROM_FIG_EPS): %.eps: %.fig
+	@echo "FIG   ->   EPS    $<"
+	@$(FIGTODEV_CMD) -L eps $*.fig $*.eps
+
+$(FROM_PNG_EPS): %.eps: %.png
+	@echo "PNG   ->   EPS    $<"
+	@$(MOGRIFY_CMD) -format eps $*.png
+
+$(FROM_GIF_EPS): %.eps: %.gif
+	@echo "GIF   ->   EPS    $<"
+	@$(MOGRIFY_CMD) -format eps $*.gif
+
+$(FROM_JPG_EPS): %.eps: %.jpg
+	@echo "JPG   ->   EPS    $<"
+	@$(MOGRIFY_CMD) -format eps $*.jpg
+
+$(FROM_TIF_EPS): %.eps: %.tif
+	@echo "TIF   ->   EPS    $<"
+	@$(MOGRIFY_CMD) -format eps $*.tif
+
+$(FROM_DIA_EPS): %.eps: %.dia
+	@echo "DIA   ->   EPS    $<"
+	@$(DIA_CMD) -t eps -e $*.eps $*.dia
+
+$(FROM_SVG_EPS): %.eps: %.svg
+	@echo "SVG   ->   EPS    $<"
+	@$(INKSCAPE_CMD) -E $*.eps $*.svg
+
+$(FROM_SVG_PDF): %.pdf: %.svg
+	@echo "SVG   ->   PDF    $<"
+	@$(INKSCAPE_CMD) -A $@ $<
+
+$(FROM_SRC_PDF_PDF): %.pdf: %.src.pdf
+	cp $$(realpath $<) $@
+
+#
+# Catchall if there isn't a specific FROM_FOO_PDF rule
+# fix CONVERT_TO_EPS_TO_PDF above if you add one
+#
+
+$(CONVERT_TO_EPS_TO_PDF): %.pdf: %.eps
+	@# Hack for pictures generated on MacOS (i.e. wrong CR/LF format)
+	@echo "EPS   ->   PDF    $<"
+	@if [ "`grep -c -e ^ $*.eps`" = "1" ]; then \
+		$(AWK_CMD) --source 'BEGIN{RS="\r";}{print $0;}' $*.eps | $(EPSTOPDF_CMD) -nocompress --filter --outfile=$*.pdf ; \
+	else \
+		$(EPSTOPDF_CMD) -nocompress $*.eps --outfile=$*.pdf ; \
+	fi
+
+$(FROM_FIG_SMALLGIF) $(FROM_EPS_SMALLGIF): %_small.gif: %.eps
+	@# Hack for pictures generated on MacOS (i.e. wrong CR/LF format)
+	if [ "`grep -c -e ^ $*.eps`" = "1" ]; then \
+		$(AWK_CMD) --source 'BEGIN{RS="\r";}{print $0;}' $*.eps | $(EPSTOPIC_CMD) --device=png256 --width_scale=400 --height_scale=400 --filter --outfile=$*_small.png ; \
+	else \
+		$(EPSTOPIC_CMD) --device=png256 --width_scale=400 --height_scale=400 $*.eps --outfile=$*_small.png ; \
+	fi
+	$(MOGRIFY_CMD) -format gif -antialias -geometry "50%x50%" $*_small.png
+
+$(FROM_PNG_SMALLGIF): %_small.gif: %.png
+	cp $*.png $*_small.png
+	$(MOGRIFY_CMD) -format gif -geometry "200x200>" $*_small.png
+	rm $*_small.png
+
+$(FROM_GIF_SMALLGIF): %_small.gif: %.gif
+	cp $*.gif $*_small.gif
+	$(MOGRIFY_CMD) -format gif -geometry "200x200>" $*_small.gif
+
+$(FROM_JPG_SMALLGIF): %_small.gif: %.jpg
+	cp $*.jpg $*_small.jpg
+	$(MOGRIFY_CMD) -format gif -geometry "200x200>" $*_small.jpg
+	rm $*_small.jpg
+
+$(FROM_TIF_SMALLGIF): %_small.gif: %.tif
+	cp $*.tif $*_small.tif
+	$(MOGRIFY_CMD) -format gif -geometry "200x200>" $*_small.tif
+	rm $*_small.tif
+
+
+$(FROM_DIA_SMALLGIF): %_small.gif: %.dia
+	$(DIA_CMD) -t cairo-alpha-png -e $*_small.png $*.dia
+	$(MOGRIFY_CMD) -format gif -geometry "200x200>" $*_small.png
+	rm $*_small.png
+
+$(FROM_SVG_SMALLGIF): %_small.gif: %.svg
+	$(INKSCAPE_CMD) -e $*_small.png $*.svg
+	$(MOGRIFY_CMD) -format gif -geometry "200x200>" $*_small.png
+	rm $*_small.png
+
+$(FROM_FIG_JPG) $(FROM_EPS_JPG): %.jpg: %.eps
+	@# Hack for pictures generated on MacOS (i.e. wrong CR/LF format)
+	if [ "`grep -c -e ^ $*.eps`" = "1" ]; then \
+		$(AWK_CMD) --source 'BEGIN{RS="\r";}{print $0;}' $*.eps | $(EPSTOPIC_CMD) --device=jpeg --width_scale=1600 --height_scale=1200 --filter --outfile=$*.jpg ; \
+	else \
+		$(EPSTOPIC_CMD) --device=jpeg --width_scale=1600 --height_scale=1200 $*.eps --outfile=$*.jpg ; \
+	fi
+	$(MOGRIFY_CMD) -format jpg -antialias -geometry "50%x50%" $*.jpg
+
+$(FROM_PNG_JPG): %.jpg: %.png
+	$(MOGRIFY_CMD) -format jpg $*.png
+
+$(FROM_GIF_JPG): %.jpg: %.gif
+	$(MOGRIFY_CMD) -format jpg $*.gif
+
+$(FROM_TIF_JPG): %.jpg: %.tif
+	$(MOGRIFY_CMD) -format jpg $*.tif
+
+$(FROM_DIA_JPG): %.jpg: %.dia
+	$(DIA_CMD) -t cairo-alpha-png -e $*.png $*.dia
+	$(MOGRIFY_CMD) -format jpg $*.png
+	rm $*.png
+
+$(FROM_SVG_JPG): %.jpg: %.svg
+	$(INKSCAPE_CMD) -e $*.png $*.svg
+	$(MOGRIFY_CMD) -format jpg $*.png
+	rm $*.png
+
+
+
+#=========================================================================================
+#
+# Cleaning and tmp dir targets
+#
+#=========================================================================================
+
+clean:
+	rm -rf $(ALL_TARGETS) $(LOG_FILE) $(TMP_DIR)/.workdir_ready
+
+distclean: clean
+	rm -rf $(TMP_DIR)
+	rm -rf $(TMP_DIR_PICS)
+
+
+#
+# creates latex tmp directory and symlinks sources without pictures in it
+#
+$(TMP_DIR)/.workdir_ready: $(SOURCES) $(TMP_DIR_SOURCES)
+	$(FIND_CMD) $(TMP_DIR) -type f -delete
+	cd $(TMP_DIR) && $(FIND_CMD) ../$(TMP_DIR_PICS) -exec ln -sf {} \;
+	touch $@
+
+$(TMP_DIR)/%: | $(TMP_DIR)
+	ln -sf ../$(filter %/$*,$(SOURCES)) $@
+
+$(TMP_DIR):
+	mkdir $(TMP_DIR)
+	
+$(TMP_DIR_PICS)/%: | $(TMP_DIR_PICS)
+	ln -sf ../$(filter %/$*,$(ABB_SRC)) $@
+
+$(TMP_DIR_PICS):
+	mkdir $(TMP_DIR_PICS)
+
+
+
+#=========================================================================================
+#
+# single run targets
+#
+#=========================================================================================
+
+
+#
+# single run of latex
+#
+%.single_latex: $(TMP_DIR)/.workdir_ready
+	cd $(TMP_DIR) ; $(LATEX_CMD) $*.tex
+
+
+#
+# single run of pdftex
+#
+%.single_pdftex: $(TMP_DIR)/.workdir_ready
+	cd $(TMP_DIR) ; $(PDFTEX_CMD) $*.tex
+
+
+#
+# single run of pdflatex
+#  includes correction of LOFs, where no cites are allowed in PDF mode
+#
+%.single_pdflatex: $(TMP_DIR)/.workdir_ready
+	cd $(TMP_DIR) ; $(PDFLATEX_CMD) $*.tex
+	@if [ -f $(TMP_DIR)/$*.lof ]; then \
+	  mv $(TMP_DIR)/$*.lof $(TMP_DIR)/$*.lof.tmp ; \
+	  $(SED_CMD) -e "s/(.*\\cite.*)//" $(TMP_DIR)/$*.lof.tmp > $(TMP_DIR)/$*.lof ; \
+	  rm -f $(TMP_DIR)/$*.lof.tmp ; \
+	fi
+
+
+#
+# single run of bibtex
+#
+%.single_bibtex: $(TMP_DIR)/.workdir_ready
+	cd $(TMP_DIR) ; $(BIBTEX_CMD) $*
+
+
+#
+# single run of tth
+#
+%.single_tth: $(TMP_DIR)/.workdir_ready
+	@cd $(TMP_DIR) ; \
+	 mv $*.aux $*.tmp ; \
+	 $(AWK_CMD) --source '!/\catcode/{ print $0; }' $*.tmp > $*.aux ; \
+	 rm -f $*.tmp
+	cd $(TMP_DIR) ; $(TTH_CMD) -p$(TEXINPUTS) \
+	                           $*.tex
+	@cd $(TMP_DIR) ; \
+	 mv $*.html $*.tmp ; \
+	 $(AWK_CMD) --source '/§§§§/{ print gensub( "^.*&nbsp;&nbsp;§§§§", "</a>", 1 $0); } !/§§§§/{ print $0; }' $*.tmp > $*.html ; \
+	 rm -f $*.tmp
+
+
+#
+# just for convenience
+#
+xdvi: $(WORK_NAME).dvi
+	$(XDVI_CMD) $(WORK_NAME).dvi
+

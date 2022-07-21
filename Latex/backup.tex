@@ -1,0 +1,128 @@
+\part{B - Backup}
+
+\begin{frame}[noframenumbering]{Backup}
+\end{frame}
+
+
+\section{Software-Defined Networks}
+\begin{frame}[noframenumbering]{Traditional Networks and SDN}
+\vspace{-0.3cm}
+\includegraphics<1>[height=\textheight]{traditionalnetwork}
+\includegraphics<2>[height=\textheight]{traditionalnetworkvssdn}
+\end{frame}
+
+
+\section{Multi-Property Set}
+\begin{frame}{Multi-Property Set}
+\begin{columns}[T]
+\column{0.65\textwidth}
+\vspace{0.2cm}
+
+$A$ = a set of flowers having \textbf{five petals}
+
+$B$ = a set of flowers with \textbf{red color}
+
+$C$ = a set of flowers being \textbf{scentless}
+
+\vspace{0.5cm}
+
+\begin{onlyenv}<1->
+\underline{Question}: $\textcolor{lmu@hyperlink}{S_{ABC}}$ = a set of flowers having \textbf{five petals,\\ 
+                                    \hspace{14ex} red color} and being \textbf{scentless} = ?
+
+\end{onlyenv}
+\begin{onlyenv}<2->
+\vspace{0.3cm}
+
+\underline{Answer}: \colorbox{green!20}{$\textcolor{lmu@hyperlink}{S_{ABC} = A \cap B \cap C}$}
+\end{onlyenv}
+\begin{onlyenv}<2->
+\vspace{0.3cm}
+
+\textbf{Match fields of SDN rules are multi-property sets}, e.g.,\\
+match=\{ip\_src=192.168.1.1, ip\_dst=192.168.1.2,\\ 
+       \hspace{8ex} ip\_proto=tcp, tcp\_dst=80\}
+\end{onlyenv}
+
+\column{0.4\textwidth}
+\includegraphics[width=\textwidth]{set_ABC_single}
+
+\vspace{0.3cm}
+
+\includegraphics<2->[width=0.9\textwidth]{set_ABC_multi}
+
+\end{columns}
+
+\end{frame}
+
+
+\section{Matchmap, actmap}
+
+\begin{frame}{Normalizing SDN Rules by \emph{Matchmap, Actmap}}
+\underline{Problem}: diverse expressions of the match and action components of SDN rules complicate their automatic comparison based on multi-property set and $\cdot r$, e.g.,\\[4pt]
+rule 1's match: \textit{\{\colorbox{yellow!20}{ip\_src=192.168.1.1}, \colorbox{blue!20}{tcp\_dst=80}\}}\\[4pt]
+rule 2's match: \textit{\{\colorbox{pink!20}{ip\_dst=192.168.1.2}\}} \\[8pt]
+
+\begin{onlyenv}<2>
+\underline{Solution}: normalizing the match and action components via a common template to obtain their uniform \textbf{matchmap} and \textbf{actmap}, e.g.,\\[4pt]
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\cellcolor{yellow!20}ip\_src & \cellcolor{pink!20}ip\_dst & \cellcolor{blue!20}tcp\_dst\\
+\hline
+\end{tabular}
+\end{center}
+
+rule 1's \textbf{matchmap}: \textit{\{\colorbox{yellow!20}{ip\_src=192.168.1.1},     \colorbox{pink!20}{ip\_dst=any},\hspace{7ex} \colorbox{blue!20}{tcp\_dst=80}\}}\\[4pt]
+rule 2's \textbf{matchmap}: \textit{\{\colorbox{yellow!20}{ip\_src=any}, \hspace{7ex}\colorbox{pink!20}{ip\_dst=192.168.1.2},     \colorbox{blue!20}{tcp\_dst=any}\}}
+\end{onlyenv}
+
+\end{frame}
+
+
+\section{Evaluation}
+\begin{frame}{Results in Randomly Checking Cases (MWN)}
+
+The number of conflicts is unknown in advance
+
+Random conflict samples from those identified by the detector are controlled manually
+
+\vspace{0.3cm}
+
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\multirow{2}{2em}{\textbf{Test}}&\textbf{App} &\textbf{\#} &\multicolumn{5}{c|}{\textbf{Local conflicts}}&\textbf{Traffic}&\textbf{Traffic}&\textbf{HC} \\
+\cline{4-8}
+  &\textbf{Priority} &\textbf{rules} &\textbf{Sha}&\textbf{Gen}&\textbf{Red}	&\textbf{Cor}&\textbf{Ove}&\textbf{Loop}&\textbf{Drop}&\textbf{ESLH}\\
+\hline
+1 	& (2,2,2,2) & 790	&0/0/0		&0/0/0		&0/0/0		&27/10/10	&0/0/0		&0/0/0	&0/0/0	&60/10/10 	\\ 
+\hline  
+2 	& (2,2,3,4) & 803	&0/0/0		&0/0/0		&0/0/0		&26/10/10	&0/0/0		&0/0/0	&0/0/0	&60/10/10 	\\ 
+\hline  
+3 	& (3,2,2,3) & 816	&0/0/0		&0/0/0		&0/0/0		&27/10/10 	&0/0/0		&0/0/0	&0/0/0	&60/10/10 	\\ 
+\hline  
+4 	& (3,5,2,4) & 789	&0/0/0		&0/0/0		&0/0/0		&25/10/10	&0/0/0		&0/0/0	&0/0/0	&59/10/10 	\\ 
+\hline  
+5 	& (5,4,3,2) & 791	&0/0/0		&0/0/0		&0/0/0		&24/10/10 	&0/0/0		&0/0/0	&0/0/0	&60/10/10 	\\ 
+\hline
+\end{tabular}
+}
+\vspace{0.1cm}
+
+{\scriptsize{
+Each cell shows \textit{the number of conflicts detected by the prototype/ the number of conflicts selected randomly to control/ the number of correct conflicts confirmed based on the manual control}
+
+Sha: Shadowing, Gen: Generalization, Red: Redundancy, Cor: Correlation, Ove: Overlap\\[-1ex]
+HC ESLH: hidden conflict class Event Suppression by Local Handling.
+}}
+
+\vspace{0.3cm}
+
+$\textcolor{lmu@hyperlink}{\Rightarrow}$ All randomly checking conflicts are correct
+
+\end{frame}
+
+
+
